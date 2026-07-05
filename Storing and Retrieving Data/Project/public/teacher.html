@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Teacher Dashboard</h1>
+            <div class="user-info">
+                <span id="userName"></span>
+                <button onclick="logout()" class="btn btn-secondary">Logout</button>
+            </div>
+        </header>
+
+        <nav class="tabs">
+            <button class="tab-btn active" onclick="showTab('courses')">My Courses</button>
+            <button class="tab-btn" onclick="showTab('students')">Students</button>
+            <button class="tab-btn" onclick="showTab('timetable')">Timetable</button>
+            <button class="tab-btn" onclick="showTab('grades')">Grades</button>
+        </nav>
+
+        <!-- Courses Tab -->
+        <div id="coursesTab" class="tab-content active">
+            <h2>My Courses</h2>
+            <table id="coursesTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Course Name</th>
+                        <th>Location</th>
+                        <th>Time</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <div id="coursesMessage" class="message"></div>
+        </div>
+
+        <!-- Students Tab -->
+        <div id="studentsTab" class="tab-content">
+            <h2>Enrolled Students</h2>
+            <div id="studentsContainer">
+                <p>Select a course to view enrolled students</p>
+            </div>
+            <div id="studentsMessage" class="message"></div>
+        </div>
+
+        <!-- Timetable Tab -->
+        <div id="timetableTab" class="tab-content">
+            <h2>My Weekly Timetable</h2>
+            <div id="timetableContainer">
+                <div id="timetableGrid"></div>
+            </div>
+            <div id="timetableMessage" class="message"></div>
+        </div>
+
+        <!-- Grades Tab -->
+        <div id="gradesTab" class="tab-content">
+            <h2>Manage Grades</h2>
+            <table id="gradesTable">
+                <thead>
+                    <tr>
+                        <th>Student</th>
+                        <th>Course</th>
+                        <th>Grade</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <div id="gradesMessage" class="message"></div>
+        </div>
+
+        <!-- Grade Edit Modal -->
+        <div id="gradeEditModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeGradeModal()">&times;</span>
+                <h3>Edit Grade</h3>
+                <form id="gradeEditForm">
+                    <div class="form-group">
+                        <label>Student:</label>
+                        <input type="text" id="modalStudentName" readonly style="background: #f5f5f5;">
+                    </div>
+                    <div class="form-group">
+                        <label>Course:</label>
+                        <input type="text" id="modalCourseName" readonly style="background: #f5f5f5;">
+                    </div>
+                    <div class="form-group">
+                        <label>Enter Grade:</label>
+                        <input type="text" id="modalGradeInput" placeholder="Enter score (0-100) or letter grade" required>
+                        <small style="color: #666; margin-top: 5px; display: block;">
+                            <strong>Grade Scale:</strong> ≥95: A+, ≥90: A, ≥85: A-, ≥80: B+, ≥75: B, ≥70: B-, ≥65: C+, ≥60: C, ≥55: C-, ≥50: D, &lt;50: F
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label>Preview:</label>
+                        <input type="text" id="modalGradePreview" readonly style="background: #e7f3ff; font-weight: bold;">
+                    </div>
+                    <input type="hidden" id="modalStudentId">
+                    <input type="hidden" id="modalCourseId">
+                    <div style="display: flex; gap: 10px; margin-top: 20px;">
+                        <button type="submit" class="btn btn-primary">Save Grade</button>
+                        <button type="button" class="btn btn-secondary" onclick="closeGradeModal()">Cancel</button>
+                        <button type="button" class="btn btn-danger" onclick="clearGrade()" style="margin-left: auto;">Clear Grade</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="teacher.js"></script>
+</body>
+
+</html>
